@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#1976d2</color>
+    <color name="colorAccent">#ff9100</color>
+    <color name="amt_background">#bbdefb</color>
+    <color name="result_backgroun">#ffe0b2</color>
+    <color name="tip_cal_theme_background">#efecec</color>
+    <color name="foreground_material_light">#f9f5f6</color>
+    <color name="tip_background">#ffec10</color>
+    <color name="amt_edittext_color_hint">#1d3d6d</color>
+</resources>

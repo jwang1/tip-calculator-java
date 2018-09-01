@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textview_padding">12dp</dimen>
+    <dimen name="elevation">3dp</dimen>
+    <dimen name="seeker_height">40dp</dimen>
+    <dimen name="textview_margin">12dp</dimen>
+</resources>

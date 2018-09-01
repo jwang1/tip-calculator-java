@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/textview_padding"
+    tools:context=".TipCalculator">
+
+    <EditText
+        android:id="@+id/amtEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill_horizontal"
+        android:digits="0123456789"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:maxLength="6"
+        android:textColorHint="@color/amt_edittext_color_hint" />
+
+    <TextView
+        android:id="@+id/amtTtextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="0"
+        android:background="#bbdefb"
+        android:hint="@string/enter_amount"
+        android:padding="@dimen/textview_padding"
+        android:textColorHint="@color/amt_edittext_color_hint" />
+
+    <TextView
+        android:id="@+id/percentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_gravity="right|center_vertical"
+        android:layout_row="1"
+        android:text="@string/tip_percentage" />
+
+    <SeekBar
+        android:id="@+id/percentSeekBar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/seeker_height"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="1"
+        android:max="@integer/max_tip_percent"
+        android:progress="@integer/tip_default_percent_progress"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tipLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_gravity="right"
+        android:layout_row="2"
+        android:text="@string/tip" />
+
+    <TextView
+        android:id="@+id/tipTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginBottom="@dimen/textview_margin"
+        android:layout_marginTop="@dimen/textview_margin"
+        android:layout_row="2"
+        android:layout_rowSpan="1"
+        android:background="@color/tip_background"
+        android:elevation="@dimen/elevation"
+        android:gravity="center"
+        android:padding="@dimen/textview_padding" />
+
+    <TextView
+        android:id="@+id/totalLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_row="3"
+        android:text="@string/total" />
+
+    <TextView
+        android:id="@+id/totalTextView"
+        style="@style/tip_calc_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_row="3"
+        android:background="@color/result_backgroun"
+        android:elevation="@dimen/elevation"
+        android:gravity="center"
+        android:padding="@dimen/textview_padding" />
+
+
+</GridLayout>
