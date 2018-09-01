@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -47,23 +49,6 @@ public class TipCalculator extends AppCompatActivity {
     private final TextWatcher amtEditTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            //
-            //  The book's solution has problem:  when amount-edit-text input changes, the amount-text-view does NOT change.
-            //                                    Also, the beforeTextChanged is, well, somewhat a fraud, because, it makes sense to calculate AFTER-Text-Changed.
-            //
-//            try {
-//                String amtInput = charSequence.toString();
-//                if (!amtInput.isEmpty()) {
-//                    billAmt = Double.parseDouble(charSequence.toString());
-//                    amtTextView.setText(currencyFormat.format(billAmt));
-//                }
-//
-//                calculate();
-//
-//            } catch (Exception e) {
-//                amtEditText.setText("");
-//                billAmt = 0.0;
-//            }
         }
 
         @Override
@@ -73,6 +58,12 @@ public class TipCalculator extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
+            // if no input
+            if (editable.length() <= 0) {
+                clear();
+                return;
+            }
+
             try {
                 billAmt = Double.parseDouble(editable.toString());
                 amtTextView.setText(currencyFormat.format(billAmt));
@@ -80,9 +71,34 @@ public class TipCalculator extends AppCompatActivity {
                 calculate();
 
             } catch (Exception e) {
-                amtEditText.setText("");
-                billAmt = 0.0;
+                clear();
             }
+        }
+    };
+
+    private void clear() {
+        // amtEditText.setText("");  // <-- This is the BUG for "backspace" delete;  should NOT do anything here?   <-- BECAUSE, setText for EditText triggers EditWatcher, hence infinite stack-frames.
+        amtTextView.setText(R.string.enter_amount);
+        billAmt = 0.0;
+
+        calculate();
+    }
+
+    private final TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                    actionId == EditorInfo.IME_ACTION_DONE ||
+                    keyEvent != null &&
+                            keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
+                            keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if (keyEvent == null || !keyEvent.isShiftPressed()) {
+                    // the user is done typing.
+
+                    return true; // consume.
+                }
+            }
+            return false; // pass on to other listeners.
         }
     };
 
@@ -99,6 +115,8 @@ public class TipCalculator extends AppCompatActivity {
         totalTextView = (TextView) findViewById(R.id.totalTextView);
 
         amtEditText = (EditText) findViewById(R.id.amtEditText);
+        // check if input action completes
+        amtEditText.setOnEditorActionListener(editorActionListener);
         amtEditText.addTextChangedListener(amtEditTextWatcher);
 
         percentSeekBar = (SeekBar) findViewById(R.id.percentSeekBar);
